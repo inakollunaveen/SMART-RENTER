@@ -1,4 +1,4 @@
-import Booking from "../models/booking.js";
+import Booking from "../models/Booking.js";
 import Property from "../models/Property.js";
 
 // Create booking (tenant)
