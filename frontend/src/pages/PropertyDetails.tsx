@@ -31,7 +31,7 @@ const PropertyDetails = () => {
   if (!property)
     return <p className="text-center py-12 text-gray-600">Property not found</p>;
 
-  const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const backendUrl = import.meta.env.VITE_API_URL || "https://smartrenter.onrender.com/api";
   const photos = property.photos || [];
   const photosCount = photos.length;
 
