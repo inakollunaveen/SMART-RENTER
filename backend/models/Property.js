@@ -1,4 +1,3 @@
-// models/Property.js
 import mongoose from "mongoose";
 
 const propertySchema = new mongoose.Schema(
@@ -17,14 +16,19 @@ const propertySchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    location: {
+      type: String,
+      required: true, // Frontend sends location as string
+      trim: true,
+    },
     price: {
       type: Number,
-      required: true, // Monthly rent price
+      required: true, // Monthly rent
       min: 0,
     },
     photos: [
       {
-        type: String, // Array of photo filenames/URLs
+        type: String, // Array of photo URLs/paths
       },
     ],
     available: {
@@ -34,12 +38,7 @@ const propertySchema = new mongoose.Schema(
     approvalStatus: {
       type: String,
       enum: ["pending", "approved", "rejected"],
-      default: "pending", // ✅ auto set to pending
-    },
-    location: {
-      type: String, // ✅ frontend will send text location (e.g., "Hyderabad, Telangana")
-      required: true,
-      trim: true,
+      default: "pending",
     },
     amenities: [
       {
@@ -48,7 +47,7 @@ const propertySchema = new mongoose.Schema(
     ],
     propertyType: {
       type: String,
-      enum: ["1BHK", "2BHK", "3BHK", "4BHK", "Villa"], // ✅ Only these allowed
+      enum: ["1 Bhk", "2 Bhk", "3 Bhk", "4 Bhk", "VILLA"],
       required: true,
     },
     bedrooms: {
@@ -62,7 +61,7 @@ const propertySchema = new mongoose.Schema(
       min: 0,
     },
     area: {
-      type: Number, // in sqft
+      type: Number,
       default: 0,
     },
     furnished: {
@@ -82,24 +81,8 @@ const propertySchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    reviews: [
-      {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        rating: { type: Number, min: 1, max: 5 },
-        comment: { type: String },
-      },
-    ],
   },
-  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  { timestamps: true }
 );
-
-// Virtual for average rating
-propertySchema.virtual("averageRating").get(function () {
-  if (this.reviews && this.reviews.length > 0) {
-    const sum = this.reviews.reduce((acc, review) => acc + review.rating, 0);
-    return sum / this.reviews.length;
-  }
-  return 0;
-});
 
 export default mongoose.model("Property", propertySchema);
