@@ -30,7 +30,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://smartrenter.onrender.com/api";
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
