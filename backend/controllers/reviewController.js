@@ -1,6 +1,6 @@
 import Review from "../models/Review.js";
 import Property from "../models/Property.js";
-import Booking from "../models/booking.js";
+import Booking from "../models/Booking.js";
 
 // Add a review for a property
 export const addReview = async (req, res) => {
