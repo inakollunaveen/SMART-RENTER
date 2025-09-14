@@ -26,7 +26,7 @@ import NotFound from "@/pages/NotFound";
 const queryClient = new QueryClient();
 
 // ⚡ Backend URL
-const API_URL = "https://smartrenter.onrender.com".replace(/\/$/, "");
+const backendUrl = import.meta.env.VITE_API_URL || "https://smartrenter.onrender.com/api";
 const AppContent: React.FC = () => {
   const { user, logout } = useAuth();
   const [properties, setProperties] = useState<any[]>([]);
