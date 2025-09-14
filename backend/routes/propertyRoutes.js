@@ -17,7 +17,7 @@ import { protect, authorize } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// Configure multer for file uploads
+// ✅ Multer config
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -33,23 +33,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB limit
-  },
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = allowedTypes.test(file.mimetype);
 
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error("Only image files are allowed!"));
-    }
+    if (mimetype && extname) cb(null, true);
+    else cb(new Error("Only image files are allowed!"));
   }
 });
 
-// Routes
+// ✅ Routes
 router.post("/", protect, upload.array("photos", 5), addProperty);
 router.get("/", getProperties);
 router.get("/search", searchProperties);
