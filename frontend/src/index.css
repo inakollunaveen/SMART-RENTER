@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SmartRent Design System - Dark theme with purple accents */
+
+@layer base {
+  :root {
+    /* Dark theme - SmartRent */
+    --background: 225 15% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 225 15% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 225 15% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Purple accent system */
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 262 100% 70%;
+
+    --secondary: 225 15% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 225 15% 12%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 225 15% 20%;
+    --input: 225 15% 15%;
+    --ring: 262 83% 58%;
+
+    --radius: 12px;
+
+    /* Purple gradient system */
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(282 85% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(225 15% 8%) 0%, hsl(262 83% 20%) 50%, hsl(282 85% 25%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(225 15% 10%), hsl(225 15% 12%));
+    
+    /* Glass morphism */
+    --glass-bg: hsla(225, 15%, 10%, 0.8);
+    --glass-border: hsla(262, 83%, 58%, 0.2);
+    
+    /* Shadows with purple glow */
+    --shadow-purple: 0 4px 30px hsla(262, 83%, 58%, 0.2);
+    --shadow-card: 0 8px 32px hsla(225, 15%, 0%, 0.4);
+    --shadow-elevated: 0 20px 60px hsla(225, 15%, 0%, 0.6);
+    
+    /* Animation easing */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
