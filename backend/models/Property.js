@@ -17,11 +17,6 @@ const propertySchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    address: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     price: {
       type: Number,
       required: true, // Monthly rent price
@@ -29,7 +24,7 @@ const propertySchema = new mongoose.Schema(
     },
     photos: [
       {
-        type: String, // Array of photo URLs/paths
+        type: String, // Array of photo filenames/URLs
       },
     ],
     available: {
@@ -39,32 +34,22 @@ const propertySchema = new mongoose.Schema(
     approvalStatus: {
       type: String,
       enum: ["pending", "approved", "rejected"],
-      default: "pending", // Admin approval status
+      default: "pending", // ✅ auto set to pending
     },
     location: {
-      lat: { type: Number, default: 0 },
-      lng: { type: Number, default: 0 },
+      type: String, // ✅ frontend will send text location (e.g., "Hyderabad, Telangana")
+      required: true,
+      trim: true,
     },
     amenities: [
       {
         type: String,
       },
-    ], // Array of amenities
+    ],
     propertyType: {
       type: String,
-      enum: [
-        "single",
-        "double",
-        "triple",
-        "1bhk",
-        "2bhk",
-        "3bhk",
-        "apartment",
-        "house",
-        "villa",
-        "studio",
-      ],
-      default: "apartment",
+      enum: ["1BHK", "2BHK", "3BHK", "4BHK", "Villa"], // ✅ Only these allowed
+      required: true,
     },
     bedrooms: {
       type: Number,
@@ -77,7 +62,7 @@ const propertySchema = new mongoose.Schema(
       min: 0,
     },
     area: {
-      type: Number, // in sqft or sqm
+      type: Number, // in sqft
       default: 0,
     },
     furnished: {
@@ -94,10 +79,9 @@ const propertySchema = new mongoose.Schema(
     },
     ownerContactNumber: {
       type: String,
-      required: true, // Owner’s contact number
+      required: true,
       trim: true,
     },
-    // Optional: if you later add reviews
     reviews: [
       {
         user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -108,9 +92,6 @@ const propertySchema = new mongoose.Schema(
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
-
-// Index for location-based queries
-propertySchema.index({ location: "2dsphere" });
 
 // Virtual for average rating
 propertySchema.virtual("averageRating").get(function () {
