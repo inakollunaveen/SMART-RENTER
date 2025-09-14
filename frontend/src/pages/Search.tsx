@@ -109,7 +109,7 @@ const Search = () => {
             />
 
               <input
-                placeholder="Property Type (single, apartment, villa, etc.)"
+                placeholder="Property Type (1Bhk,2Bhk ,3Bhk,Villa, etc.)"
                 className="border rounded p-1 w-full mb-2"
                 value={filters.propertyType || ""}
                 onChange={(e) =>
