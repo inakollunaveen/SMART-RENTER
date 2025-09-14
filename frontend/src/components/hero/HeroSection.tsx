@@ -17,7 +17,7 @@ const HeroSection = () => {
     if (priceRange) params.set("price", priceRange);
     if (propertyType) params.set("type", propertyType);
 
-    navigate(`/search?${params.toString()}`);
+    navigate(/search?${params.toString()});
   };
 
   return (
@@ -83,12 +83,11 @@ const HeroSection = () => {
                 </div>
               </SelectTrigger>
               <SelectContent className="bg-gray-900 text-white">
-                <SelectItem value="single">Single Room</SelectItem>
-                <SelectItem value="double">Double Sharing</SelectItem>
-                <SelectItem value="triple">Triple Sharing</SelectItem>
                 <SelectItem value="1bhk">1 BHK</SelectItem>
                 <SelectItem value="2bhk">2 BHK</SelectItem>
                 <SelectItem value="3bhk">3 BHK</SelectItem>
+                <SelectItem value="4bhk">4 BHK</SelectItem>
+                <SelectItem value="Villa">Villa</SelectItem>
               </SelectContent>
             </Select>
 
