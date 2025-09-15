@@ -11,26 +11,6 @@ services:
     startCommand: node server.js
     envVars:
       - key: NODE_VERSION
-        value: 18.20.3   # stable Node LTS (Render supports this)
-      - key: BUN_VERSION
-        value: ""        # disables Bun
-    autoDeploy: true
-    buildFilter:
-      paths:
-        ignore:
-          - README.md
-          - frontend/**
-
-  # ======================
-  # Frontend (Vite React)
-  # ======================
-  - type: static
-    name: smartrenter-frontend
-    branch: main
-    buildCommand: npm ci && npm run build
-    publishPath: dist
-    envVars:
-      - key: NODE_VERSION
         value: 18.20.3
       - key: BUN_VERSION
         value: ""
@@ -39,4 +19,23 @@ services:
       paths:
         ignore:
           - README.md
+          - frontend/**
+          - docs/**
+          - "*.md"
+
+  # ======================
+  # Frontend (Vite React as Static Site)
+  # ======================
+  - type: static
+    name: smartrenter-frontend
+    branch: main
+    buildCommand: npm run build   # ✅ no npm install/ci
+    publishPath: dist
+    autoDeploy: true
+    buildFilter:
+      paths:
+        ignore:
+          - README.md
           - backend/**
+          - docs/**
+          - "*.md"
