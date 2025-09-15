@@ -52,6 +52,17 @@ export const addProperty = async (req, res, next) => {
       }
     }
 
+    // Normalize propertyType to match schema enum
+    console.log('Received propertyType:', propertyType);
+    let normalizedPropertyType = propertyType.toUpperCase();
+    if (!normalizedPropertyType.includes(' ')) {
+      normalizedPropertyType = normalizedPropertyType.replace(/(\d+)/, '$1 ');
+    }
+    if (!normalizedPropertyType.includes('BHK')) {
+      normalizedPropertyType = normalizedPropertyType + ' BHK';
+    }
+    console.log('Normalized propertyType:', normalizedPropertyType);
+
     // Create new property
     const property = new Property({
       owner: owner._id,
@@ -59,7 +70,7 @@ export const addProperty = async (req, res, next) => {
       description,
       address,
       price: parseFloat(price),
-      propertyType,
+      propertyType: normalizedPropertyType,
       bedrooms: bedrooms ? parseInt(bedrooms) : 1,
       bathrooms: bathrooms ? parseInt(bathrooms) : 1,
       area: area ? parseFloat(area) : null,
@@ -83,6 +94,18 @@ export const addProperty = async (req, res, next) => {
     });
   } catch (error) {
     console.error('Error adding property:', error);
+    // Add detailed error logging for diagnosis
+    if (error.errors) {
+      for (const key in error.errors) {
+        console.error(`Validation error for ${key}:`, error.errors[key].message);
+      }
+    }
+    if (error.message) {
+      console.error('Error message:', error.message);
+    }
+    if (error.stack) {
+      console.error('Stack trace:', error.stack);
+    }
     next(error);
   }
 };
