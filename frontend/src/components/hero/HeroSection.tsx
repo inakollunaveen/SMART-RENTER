@@ -87,7 +87,7 @@ const HeroSection = () => {
                 <SelectItem value="2bhk">2 BHK</SelectItem>
                 <SelectItem value="3bhk">3 BHK</SelectItem>
                 <SelectItem value="4bhk">4 BHK</SelectItem>
-                <SelectItem value="VILLA">VILLA</SelectItem>
+                <SelectItem value="villa">VILLA</SelectItem>
               </SelectContent>
             </Select>
 
