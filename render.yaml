@@ -1,11 +1,11 @@
 services:
   - type: web
-    name: smartrenter
+    name: smartrenter-frontend
     env: node
     branch: main
     plan: free
     buildCommand: npm install && npm run build
-    startCommand: npm start
+    startCommand: npm run preview
     autoDeploy: true
     buildFilter:
       paths:
