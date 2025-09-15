@@ -1,13 +1,32 @@
 services:
+  # ======================
+  # Backend (Express API)
+  # ======================
   - type: web
-    name: smartrenter-frontend
+    name: smartrenter-backend
     env: node
     branch: main
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm run preview
+    buildCommand: npm ci
+    startCommand: node server.js
     autoDeploy: true
     buildFilter:
       paths:
         ignore:
           - README.md
+          - frontend/**
+    
+  # ======================
+  # Frontend (Vite React)
+  # ======================
+  - type: static
+    name: smartrenter-frontend
+    branch: main
+    buildCommand: npm ci && npm run build
+    publishPath: dist
+    autoDeploy: true
+    buildFilter:
+      paths:
+        ignore:
+          - README.md
+          - backend/**
