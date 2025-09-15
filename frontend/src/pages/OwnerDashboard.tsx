@@ -537,11 +537,12 @@ const OwnerDashboard: React.FC = () => {
                             <SelectValue placeholder="Select property type" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="1BHK">1 BHK</SelectItem>
-                            <SelectItem value="2BHK">2 BHK</SelectItem>
-                            <SelectItem value="3BHK">3 BHK</SelectItem>
-                            <SelectItem value="4BHK">4 BHK</SelectItem>
-                            <SelectItem value="Villa">VILLA</SelectItem>
+                            <SelectItem value="1bhk">1 BHK</SelectItem>
+                            <SelectItem value="2bhk">2 BHK</SelectItem>
+                            <SelectItem value="3bhk">3 BHK</SelectItem>
+                            <SelectItem value="4bhk">4 BHK</SelectItem>
+                            <SelectItem value="villa">VILLA</SelectItem>
+                                        
                           </SelectContent>
                         </Select>
                       </div>
