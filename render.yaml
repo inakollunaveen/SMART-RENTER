@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: smartrenter
+    env: node
+    branch: main
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    autoDeploy: true
+    buildFilter:
+      paths:
+        ignore:
+          - README.md
