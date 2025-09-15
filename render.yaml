@@ -9,13 +9,18 @@ services:
     plan: free
     buildCommand: npm ci
     startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 18.20.3   # stable Node LTS (Render supports this)
+      - key: BUN_VERSION
+        value: ""        # disables Bun
     autoDeploy: true
     buildFilter:
       paths:
         ignore:
           - README.md
           - frontend/**
-    
+
   # ======================
   # Frontend (Vite React)
   # ======================
@@ -24,6 +29,11 @@ services:
     branch: main
     buildCommand: npm ci && npm run build
     publishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: 18.20.3
+      - key: BUN_VERSION
+        value: ""
     autoDeploy: true
     buildFilter:
       paths:
