@@ -39,36 +39,8 @@ app.use(
 app.use(express.json()); // parse JSON
 app.use(express.urlencoded({ extended: true })); // handle form-data
 
-// Serve uploaded images statically with CORS
-app.use("/uploads", cors({
-  origin: [
-    "http://localhost:8080",
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "https://smartrenter.vercel.app",
-    process.env.CLIENT_URL,
-  ].filter(Boolean),
-  credentials: true,
-}), express.static(path.join(__dirname, "uploads")));
-
-// Add route to serve a sample image for testing
-app.get("/api/sample-image", (req, res) => {
-  const imagePath = path.join(__dirname, "uploads", "photos-1757560743678-369121986.jpg");
-  res.sendFile(imagePath);
-});
-
-// Handle preflight OPTIONS requests for all routes
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+// Serve uploaded images statically
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ===== Routes =====
 app.use("/api/auth", authRoutes);
@@ -80,20 +52,21 @@ app.use("/api/reviews", reviewRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 // ===== Start Server =====
 const PORT = process.env.PORT || 5000;
 
 connectDB()
-  .then(() => {
-    console.log("✅ Connected to MongoDB Atlas");
-    app.listen(PORT, () =>
-      console.log(`🚀 Server running at http://localhost:${PORT}`)
-    );
-  })
-  .catch((err) => {
-    console.error("❌ Failed to connect to MongoDB:", err.message);
-    process.exit(1);
-  });
+  .then(() => {
+    console.log("✅ Connected to MongoDB Atlas");
+    app.listen(PORT, () =>
+      console.log(`🚀 Server running at http://localhost:${PORT}`)
+    );
+  })
+  .catch((err) => {
+    console.error("❌ Failed to connect to MongoDB:", err.message);
+    process.exit(1);
+  });
+
