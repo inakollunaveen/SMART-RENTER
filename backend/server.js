@@ -29,7 +29,7 @@ app.use(
       "http://localhost:8080",
       "http://localhost:3000",
       "http://localhost:5173",
-      "https://smart-renter-05od.onrender.com",
+      "https://smartrenter.vercel.app/",
       process.env.CLIENT_URL, // allow .env config for deployed frontend
     ],
     credentials: true,
