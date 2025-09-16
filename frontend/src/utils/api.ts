@@ -1,5 +1,5 @@
 // src/utils/api.ts
-const API_URL = (import.meta.env.VITE_BACKEND_URL || "https://smartrenter-l0z3.onrender.com").replace(/\/$/, "");
+const API_URL = "https://smartrenter-l0z3.onrender.com";
 // --- Core request helper ---
 async function apiRequest(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem("token");
