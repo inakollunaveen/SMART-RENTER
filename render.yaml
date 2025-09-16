@@ -1,41 +1,26 @@
 services:
-  # ======================
-  # Backend (Express API)
-  # ======================
-  - type: web
-    name: smartrenter-backend
-    env: node
-    branch: main
-    plan: free
-    buildCommand: npm ci
-    startCommand: node server.js
-    envVars:
-      - key: NODE_VERSION
-        value: 18.20.3
-      - key: BUN_VERSION
-        value: ""
-    autoDeploy: true
-    buildFilter:
-      paths:
-        ignore:
-          - README.md
-          - frontend/**
-          - docs/**
-          - "*.md"
-
-  # ======================
-  # Frontend (Vite React as Static Site)
-  # ======================
+  # === Frontend (Static Site) ===
   - type: static
     name: smartrenter-frontend
-    branch: main
-    buildCommand: npm run build   # ✅ no npm install/ci
+    env: node
+    # Skip building on Render, use prebuilt dist committed in GitHub
+    buildCommand: echo "Skipping build, using prebuilt dist"
     publishPath: dist
     autoDeploy: true
     buildFilter:
       paths:
-        ignore:
-          - README.md
-          - backend/**
-          - docs/**
-          - "*.md"
+        - "frontend/**"
+        - "!README.md"
+
+  # === Backend (Express API) ===
+  - type: web
+    name: smartrenter-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - "backend/**"
+        - "!README.md"
