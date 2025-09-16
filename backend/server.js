@@ -58,16 +58,17 @@ app.get("/api/sample-image", (req, res) => {
 });
 
 // Handle preflight OPTIONS requests for all routes
-app.options('*', cors({
-  origin: [
-    "http://localhost:8080",
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "https://smartrenter.vercel.app",
-    process.env.CLIENT_URL,
-  ].filter(Boolean),
-  credentials: true,
-}));
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 
 // ===== Routes =====
 app.use("/api/auth", authRoutes);
