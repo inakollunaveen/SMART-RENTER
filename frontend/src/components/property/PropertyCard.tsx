@@ -28,7 +28,7 @@ interface Props {
 const PropertyCard: React.FC<Props> = ({ property }) => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
   const photos = property.photos || [];
-  const backendUrl = import.meta.env.VITE_API_URL || "https://smartrenter.onrender.com/api";
+  const backendUrl = import.meta.env.VITE_API_URL || "https://smartrenter-l0z3.onrender.com/api";
 
   const nextPhoto = () => setCurrentPhoto((prev) => (prev + 1) % photos.length);
   const prevPhoto = () =>
