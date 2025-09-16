@@ -39,8 +39,35 @@ app.use(
 app.use(express.json()); // parse JSON
 app.use(express.urlencoded({ extended: true })); // handle form-data
 
-// Serve uploaded images statically
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// Serve uploaded images statically with CORS
+app.use("/uploads", cors({
+  origin: [
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://smartrenter.vercel.app",
+    process.env.CLIENT_URL,
+  ].filter(Boolean),
+  credentials: true,
+}), express.static(path.join(__dirname, "uploads")));
+
+// Add route to serve a sample image for testing
+app.get("/api/sample-image", (req, res) => {
+  const imagePath = path.join(__dirname, "uploads", "photos-1757560743678-369121986.jpg");
+  res.sendFile(imagePath);
+});
+
+// Handle preflight OPTIONS requests for all routes
+app.options('*', cors({
+  origin: [
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://smartrenter.vercel.app",
+    process.env.CLIENT_URL,
+  ].filter(Boolean),
+  credentials: true,
+}));
 
 // ===== Routes =====
 app.use("/api/auth", authRoutes);
