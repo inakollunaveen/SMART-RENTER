@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 // ✅ Helper to prepend backend URL for images
-const BACKEND_URL = "https://smartrenter1.onrender.com/api";
+const BACKEND_URL = "https://smartrenter1.onrender.com";
 
 const PropertyDetails = () => {
   const { id } = useParams();
