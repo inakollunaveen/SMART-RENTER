@@ -28,7 +28,7 @@ const queryClient = new QueryClient();
 
 // ✅ Correct backend API URL
 const API_URL =
-  import.meta.env.VITE_API_URL || "https://smartrenter1.onrender.com/api";
+  import.meta.env.VITE_API_URL || "https://smartrenter1.onrender.com";
 
 // ✅ Helper to build full image URLs
 export const getImageUrl = (path: string) =>
