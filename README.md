@@ -152,7 +152,7 @@ This project is licensed under the **MIT License**.
 
 ## 👨‍💻 Author
 
-**Tharun Lokesh Uggina**
+**Inakollu Venkata Naveen Kuumar**
 🔗 [LinkedIn](https://www.linkedin.com/in/naveenkumarinakollu)
 📧 [inakollun@gmail.com](mailto:inakollun@gmail.com)
 
