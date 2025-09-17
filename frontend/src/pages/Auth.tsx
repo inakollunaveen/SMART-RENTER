@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -98,6 +98,38 @@ const Auth = () => {
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Welcome</h1>
           <p className="text-white">Join thousands finding homes without brokers</p>
+        </div>
+
+        {/* Google Sign-In Button */}
+        <div className="mb-6 text-center">
+          <a
+            href={`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/auth/google`}
+            className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold"
+          >
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 533.5 544.3"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M533.5 278.4c0-17.4-1.5-34.1-4.3-50.4H272v95.5h146.9c-6.3 34-25.3 62.8-54 82v68h87.1c50.9-46.9 80.5-116 80.5-194.9z"
+                fill="#4285f4"
+              />
+              <path
+                d="M272 544.3c73.7 0 135.6-24.4 180.8-66.1l-87.1-68c-24.2 16.2-55.1 25.7-93.7 25.7-71.9 0-132.9-48.6-154.8-114.1H28.9v71.7c45.1 89.1 137.3 150.8 243.1 150.8z"
+                fill="#34a853"
+              />
+              <path
+                d="M117.2 323.8c-10.7-31.7-10.7-65.9 0-97.6v-71.7H28.9c-39.3 77.7-39.3 170.7 0 248.4l88.3-79.1z"
+                fill="#fbbc04"
+              />
+              <path
+                d="M272 107.7c39.8-.6 77.9 14.1 106.9 40.7l80.1-80.1C405.6 24.4 343.7 0 272 0 166.2 0 74 61.7 28.9 150.8l88.3 71.7c21.9-65.5 82.9-114.1 154.8-114.8z"
+                fill="#ea4335"
+              />
+            </svg>
+            <span>Sign in with Google</span>
+          </a>
         </div>
 
         {/* Glass Card */}

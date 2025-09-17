@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import passport from "passport";
+import session from "express-session";
 
 import authRoutes from "./routes/authRoutes.js";
 import propertyRoutes from "./routes/propertyRoutes.js";
@@ -12,6 +14,7 @@ import houseRoutes from "./routes/houseRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import { connectDB } from "./config/db.js";
+import "./config/passport.js"; // Import Passport config
 
 dotenv.config();
 
@@ -31,6 +34,17 @@ app.use(
 
 app.use(express.json()); // parse JSON
 app.use(express.urlencoded({ extended: true })); // handle form-data
+
+// Session middleware for Passport
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-session-secret',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Serve uploaded images statically
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
