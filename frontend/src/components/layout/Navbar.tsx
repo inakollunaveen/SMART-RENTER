@@ -46,10 +46,10 @@ const Navbar = () => {
                 </button>
                 <div className="flex items-center space-x-4">
                   <span className="text-sm text-muted-foreground">Hi, {user?.name}</span>
-                  <Button variant="outline" size="sm" onClick={logout}>
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Logout
-                  </Button>
+<Button variant="outline" size="sm" onClick={() => { logout(); navigate("/auth"); }}>
+  <LogOut className="w-4 h-4 mr-2" />
+  Logout
+</Button>
                 </div>
               </>
             ) : (
@@ -99,10 +99,10 @@ const Navbar = () => {
                   </button>
                   <div className="pt-2 border-t border-border">
                     <p className="text-sm text-muted-foreground mb-2">Hi, {user?.name}</p>
-                    <Button variant="outline" size="sm" className="w-fit" onClick={logout}>
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Logout
-                    </Button>
+<Button variant="outline" size="sm" className="w-fit" onClick={() => { logout(); navigate("/auth"); }}>
+  <LogOut className="w-4 h-4 mr-2" />
+  Logout
+</Button>
                   </div>
                 </>
               ) : (
