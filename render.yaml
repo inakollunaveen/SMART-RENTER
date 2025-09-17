@@ -1,0 +1,26 @@
+services:
+  # === Frontend (Static Site) ===
+  - type: static
+    name: smartrenter-frontend
+    env: node
+    # Skip building on Render, use prebuilt dist committed in GitHub
+    buildCommand: echo "Skipping build, using prebuilt dist"
+    publishPath: dist
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - "frontend/**"
+        - "!README.md"
+
+  # === Backend (Express API) ===
+  - type: web
+    name: smartrenter1
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - "backend/**"
+        - "!README.md"
