@@ -1,5 +1,5 @@
 // src/utils/api.ts
-export const API_URL = "https://smartrenter1.onrender.com ";
+export const API_URL = "https://smartrenter1.onrender.com";
 // --- Core request helper ---
 async function apiRequest(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem("token");
