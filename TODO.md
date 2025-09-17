@@ -1,8 +1,7 @@
-# TODO: Add Google OAuth Sign-In
+# TODO: Add Property Image Upload and Display
 
 ## Tasks
-- [x] Configure Passport and Google OAuth strategy in backend
-- [x] Add Google OAuth routes in authRoutes.js
-- [x] Update authController.js to handle Google OAuth
-- [x] Add Google sign-in button to frontend Login component
-- [x] Test the full Google OAuth flow
+- [x] Confirm backend/routes/propertyRoutes.js has multer middleware for photo uploads
+- [x] Add photo thumbnails in OwnerDashboard listings table
+- [x] Check Search.tsx to ensure images are displayed in search results
+- [ ] Test the full image upload and display flow
