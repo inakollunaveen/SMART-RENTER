@@ -33,7 +33,22 @@ const Search = () => {
         setLoading(true);
         const result = await searchProperties(filters);
         console.log("Search properties result:", result);  // Added debug log
-        setProperties(result);
+        // Fix: Map photos to prepend API_URL if needed
+        const fixedProperties = result.map((property: any) => {
+          if (property.photos && Array.isArray(property.photos)) {
+            property.photos = property.photos.map((photo: string) => {
+              if (photo.startsWith("http://") || photo.startsWith("https://")) {
+                return photo;
+              }
+              if (photo.startsWith("/")) {
+                return `${process.env.REACT_APP_API_URL || "https://smartrenter1.onrender.com"}${photo}`;
+              }
+              return photo;
+            });
+          }
+          return property;
+        });
+        setProperties(fixedProperties);
       } catch (err) {
         console.error(err);
       } finally {
@@ -202,4 +217,3 @@ const Search = () => {
   );
 };
 
-export default Search;
