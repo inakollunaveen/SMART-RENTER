@@ -470,22 +470,9 @@ const OwnerDashboard: React.FC = () => {
                           listings.map((listing) => (
                             <TableRow key={listing._id}>
                               <TableCell className="font-medium">
-                                <div className="flex items-center space-x-3">
-                                  {listing.photos && listing.photos.length > 0 ? (
-                                    <img
-                                      src={listing.photos[0]}
-                                      alt={listing.title}
-                                      className="w-12 h-12 object-cover rounded-lg border border-border"
-                                    />
-                                  ) : (
-                                    <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
-                                      <Home className="w-6 h-6 text-muted-foreground" />
-                                    </div>
-                                  )}
-                                  <div>
-                                    <div className="font-semibold">{listing.title}</div>
-                                    <div className="text-sm text-muted-foreground">{listing.propertyType}</div>
-                                  </div>
+                                <div>
+                                  <div className="font-semibold">{listing.title}</div>
+                                  <div className="text-sm text-muted-foreground">{listing.propertyType}</div>
                                 </div>
                               </TableCell>
 
