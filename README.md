@@ -153,8 +153,8 @@ This project is licensed under the **MIT License**.
 ## 👨‍💻 Author
 
 **Tharun Lokesh Uggina**
-🔗 [LinkedIn](https://www.linkedin.com/in/tharun-lokesh-uggina)
-📧 [tharunlokeshu@gmail.com](mailto:tharunlokeshu@gmail.com)
+🔗 [LinkedIn](https://www.linkedin.com/in/naveenkumarinakollu)
+📧 [inakollun@gmail.com](mailto:inakollun@gmail.com)
 
 ---
 
