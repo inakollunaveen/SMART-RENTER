@@ -1,7 +1,7 @@
 // src/pages/PropertyDetails.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPropertyById } from "@/utils/api";
+import { getPropertyById, API_URL } from "@/utils/api";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -31,7 +31,6 @@ const PropertyDetails = () => {
   if (!property)
     return <p className="text-center py-12 text-gray-600">Property not found</p>;
 
-  const backendUrl = import.meta.env.VITE_API_URL || "https://smartrenter-l0z3.onrender.com/api";
   const photos = property.photos || [];
   const photosCount = photos.length;
 
@@ -51,7 +50,7 @@ const PropertyDetails = () => {
           {photosCount > 0 ? (
             <>
               <img
-                src={`${backendUrl}${photos[currentPhoto]}`}
+                src={`${API_URL}${photos[currentPhoto]}`}
                 alt={`${property.title} - ${currentPhoto + 1}`}
                 className="w-full h-full object-cover transition-transform duration-500"
               />
