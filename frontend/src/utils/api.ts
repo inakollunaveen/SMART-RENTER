@@ -52,7 +52,7 @@ export async function addProperty(formData: FormData) {
   const headers: Record<string, string> = {};
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(`${API_URL}/api/properties`, {
+  const res = await fetch(`${API_URL}/properties`, {
     method: "POST",
     headers,
     credentials: "include",
@@ -72,19 +72,19 @@ export async function addProperty(formData: FormData) {
 
 // Get all approved and available properties (public)
 export async function getProperties() {
-  const data = await apiRequest("/api/properties");
+  const data = await apiRequest("/properties");
   return Array.isArray(data) ? data : data?.properties || [];
 }
 
 // Get owner’s properties (protected)
 export async function getOwnerProperties() {
-  const data = await apiRequest("/api/properties/owner/my-properties");
+  const data = await apiRequest("/properties/owner/my-properties");
   return Array.isArray(data) ? data : data?.properties || [];
 }
 
 // Delete property by ID (protected)
 export async function deleteProperty(id: string) {
-  return apiRequest(`/api/properties/${id}`, { method: "DELETE" });
+  return apiRequest(`/properties/${id}`, { method: "DELETE" });
 }
 
 // Search properties with filters (public)
@@ -97,13 +97,13 @@ export async function searchProperties(queryParams: Record<string, string | numb
   });
 
   const queryString = new URLSearchParams(filteredParams).toString();
-  const data = await apiRequest(`/api/properties/search?${queryString}`);
+  const data = await apiRequest(`/properties/search?${queryString}`);
   return Array.isArray(data) ? data : data?.properties || [];
 }
 
 // Get single property by ID
 export async function getPropertyById(id: string) {
-  const data = await apiRequest(`/api/properties/${id}`);
+  const data = await apiRequest(`/properties/${id}`);
   return data?.property || data;
 }
 
@@ -116,7 +116,7 @@ export async function updateProperty(id: string, updates: object | FormData) {
   // Only set Content-Type if not FormData
   if (!(updates instanceof FormData)) headers["Content-Type"] = "application/json";
 
-  const res = await fetch(`${API_URL}/api/properties/${id}`, {
+  const res = await fetch(`${API_URL}/properties/${id}`, {
     method: "PUT",
     headers,
     credentials: "include",
@@ -136,7 +136,7 @@ export async function updateProperty(id: string, updates: object | FormData) {
 
 // Approve or reject property (admin only)
 export async function approveProperty(id: string, status: "approved" | "rejected") {
-  return apiRequest(`/api/properties/${id}/approve`, {
+  return apiRequest(`/properties/${id}/approve`, {
     method: "PUT",
     body: JSON.stringify({ status }),
   });
@@ -144,6 +144,6 @@ export async function approveProperty(id: string, status: "approved" | "rejected
 
 // Get all pending properties (admin only)
 export async function getPendingProperties() {
-  const data = await apiRequest("/api/properties/pending");
+  const data = await apiRequest("/properties/pending");
   return Array.isArray(data) ? data : data?.properties || [];
 }
