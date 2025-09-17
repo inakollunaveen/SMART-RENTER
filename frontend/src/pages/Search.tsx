@@ -32,8 +32,7 @@ const Search = () => {
       try {
         setLoading(true);
         const result = await searchProperties(filters);
-        console.log("Search properties result:", result);  // Added debug log
-        // Fix: Map photos to prepend API_URL if needed
+        console.log("Search properties result:", result);
         const fixedProperties = result.map((property: any) => {
           if (property.photos && Array.isArray(property.photos)) {
             property.photos = property.photos.map((photo: string) => {
@@ -54,12 +53,11 @@ const Search = () => {
       } finally {
         setLoading(false);
       }
-    }, 300); // debounce
+    }, 300);
 
     return () => clearTimeout(handler);
   }, [filters]);
 
-  // Handle boolean filters
   const handleCheckbox = (field: keyof Filters) => {
     setFilters({ ...filters, [field]: !filters[field] });
   };
@@ -71,12 +69,8 @@ const Search = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8 flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">
-                Search Results
-              </h1>
-              <p className="text-muted-foreground">
-                Found {properties.length} properties
-              </p>
+              <h1 className="text-3xl font-bold text-foreground mb-2">Search Results</h1>
+              <p className="text-muted-foreground">Found {properties.length} properties</p>
             </div>
             <Button
               variant="outline"
@@ -90,90 +84,61 @@ const Search = () => {
 
           <div className="flex gap-8">
             {/* Filter Sidebar */}
-            <div
-              className={`${
-                showFilters ? "block" : "hidden"
-              } lg:block w-80 flex-shrink-0 border p-4 rounded`}
-            >
+            <div className={`${showFilters ? "block" : "hidden"} lg:block w-80 flex-shrink-0 border p-4 rounded`}>
               <h3 className="font-semibold mb-2">Filters</h3>
 
               <input
                 placeholder="Location"
                 className="border rounded p-1 w-full mb-2"
                 value={filters.location || ""}
-                onChange={(e) =>
-                  setFilters({ ...filters, location: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, location: e.target.value })}
               />
               <input
-              placeholder="Min Price (₹)"
-              className="border rounded p-1 w-full mb-2"
-              type="number"
-              value={filters.minPrice || ""}
-              onChange={(e) =>
-                setFilters({ ...filters, minPrice: e.target.value })
-              }
-            />
-            <input
-              placeholder="Max Price (₹)"
-              className="border rounded p-1 w-full mb-2"
-              type="number"
-              value={filters.maxPrice || ""}
-              onChange={(e) =>
-                setFilters({ ...filters, maxPrice: e.target.value })
-              }
-            />
-
+                placeholder="Min Price (₹)"
+                className="border rounded p-1 w-full mb-2"
+                type="number"
+                value={filters.minPrice || ""}
+                onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
+              />
+              <input
+                placeholder="Max Price (₹)"
+                className="border rounded p-1 w-full mb-2"
+                type="number"
+                value={filters.maxPrice || ""}
+                onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
+              />
               <input
                 placeholder="Property Type (1BHK,2BHK,villa, etc.)"
                 className="border rounded p-1 w-full mb-2"
                 value={filters.propertyType || ""}
-                onChange={(e) =>
-                  setFilters({ ...filters, propertyType: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
               />
               <input
                 placeholder="Bedrooms"
                 className="border rounded p-1 w-full mb-2"
                 type="number"
                 value={filters.bedrooms || ""}
-                onChange={(e) =>
-                  setFilters({ ...filters, bedrooms: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, bedrooms: e.target.value })}
               />
               <input
                 placeholder="Bathrooms"
                 className="border rounded p-1 w-full mb-2"
                 type="number"
                 value={filters.bathrooms || ""}
-                onChange={(e) =>
-                  setFilters({ ...filters, bathrooms: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, bathrooms: e.target.value })}
               />
 
               <div className="flex flex-col mb-2">
                 <label className="inline-flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={filters.furnished || false}
-                    onChange={() => handleCheckbox("furnished")}
-                  />
+                  <input type="checkbox" checked={filters.furnished || false} onChange={() => handleCheckbox("furnished")} />
                   Furnished
                 </label>
                 <label className="inline-flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={filters.petsAllowed || false}
-                    onChange={() => handleCheckbox("petsAllowed")}
-                  />
+                  <input type="checkbox" checked={filters.petsAllowed || false} onChange={() => handleCheckbox("petsAllowed")} />
                   Pets Allowed
                 </label>
                 <label className="inline-flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={filters.parking || false}
-                    onChange={() => handleCheckbox("parking")}
-                  />
+                  <input type="checkbox" checked={filters.parking || false} onChange={() => handleCheckbox("parking")} />
                   Parking
                 </label>
               </div>
@@ -182,9 +147,7 @@ const Search = () => {
                 placeholder="Amenities (comma separated)"
                 className="border rounded p-1 w-full mb-2"
                 value={filters.amenities || ""}
-                onChange={(e) =>
-                  setFilters({ ...filters, amenities: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, amenities: e.target.value })}
               />
             </div>
 
@@ -197,9 +160,7 @@ const Search = () => {
                 </div>
               ) : properties.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">
-                    No properties found matching your criteria.
-                  </p>
+                  <p className="text-muted-foreground">No properties found matching your criteria.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -217,3 +178,5 @@ const Search = () => {
   );
 };
 
+// ✅ Export default added
+export default Search;
