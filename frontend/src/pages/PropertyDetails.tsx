@@ -16,6 +16,18 @@ const PropertyDetails = () => {
       try {
         setLoading(true);
         const data = await getPropertyById(id!);
+        // Fix: Map photos to prepend API_URL if needed
+        if (data && data.photos && Array.isArray(data.photos)) {
+          data.photos = data.photos.map((photo: string) => {
+            if (photo.startsWith("http://") || photo.startsWith("https://")) {
+              return photo;
+            }
+            if (photo.startsWith("/")) {
+              return `${API_URL}${photo}`;
+            }
+            return photo;
+          });
+        }
         setProperty(data);
       } catch (err) {
         console.error(err);
@@ -52,7 +64,7 @@ const PropertyDetails = () => {
           {photosCount > 0 ? (
             <>
               <img
-                src={`${API_URL}${photos[currentPhoto]}`}
+                src={photos[currentPhoto]}
                 alt={`${property.title} - ${currentPhoto + 1}`}
                 className="w-full h-full object-cover transition-transform duration-500"
               />
