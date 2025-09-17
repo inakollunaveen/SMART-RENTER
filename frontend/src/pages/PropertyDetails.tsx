@@ -4,15 +4,42 @@ import { useParams } from "react-router-dom";
 import { getPropertyById, API_URL } from "@/utils/api";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Button } from "@/components/ui/button";
+import { RefreshCw } from "lucide-react";
 
 const PropertyDetails = () => {
   const { id } = useParams();
   const [property, setProperty] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [currentPhoto, setCurrentPhoto] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchProperty = async () => {
+    try {
+      setRefreshing(true);
+      const data = await getPropertyById(id!);
+      // Fix: Map photos to prepend API_URL if needed
+      if (data && data.photos && Array.isArray(data.photos)) {
+        data.photos = data.photos.map((photo: string) => {
+          if (photo.startsWith("http://") || photo.startsWith("https://")) {
+            return photo;
+          }
+          if (photo.startsWith("/")) {
+            return `${API_URL}${photo}`;
+          }
+          return photo;
+        });
+      }
+      setProperty(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProperty = async () => {
+    const loadProperty = async () => {
       try {
         setLoading(true);
         const data = await getPropertyById(id!);
@@ -35,7 +62,7 @@ const PropertyDetails = () => {
         setLoading(false);
       }
     };
-    fetchProperty();
+    loadProperty();
   }, [id]);
 
   if (loading)
@@ -60,6 +87,18 @@ const PropertyDetails = () => {
 
       {/* Photo Carousel */}
       <div className="max-w-6xl mx-auto mt-6">
+        <div className="flex justify-end mb-2">
+          <Button
+            onClick={fetchProperty}
+            disabled={refreshing}
+            variant="outline"
+            size="sm"
+            className="bg-white/90 hover:bg-white"
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+            {refreshing ? 'Refreshing...' : 'Refresh'}
+          </Button>
+        </div>
         <div className="relative w-full h-[450px] rounded-2xl overflow-hidden shadow-lg">
           {photosCount > 0 ? (
             <>
