@@ -1,9 +1,12 @@
 // src/pages/PropertyDetails.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPropertyById, API_URL } from "@/utils/api";
+import { getPropertyById } from "@/utils/api";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
+// ✅ Helper to prepend backend URL for images
+const BACKEND_URL = "https://smartrenter1.onrender.com";
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -35,10 +38,12 @@ const PropertyDetails = () => {
   const photosCount = photos.length;
 
   const nextPhoto = () => setCurrentPhoto((prev) => (prev + 1) % photosCount);
-  const prevPhoto = () => setCurrentPhoto((prev) => (prev - 1 + photosCount) % photosCount);
+  const prevPhoto = () =>
+    setCurrentPhoto((prev) => (prev - 1 + photosCount) % photosCount);
 
   // Common section style
-  const sectionClass = "bg-green-50 border-l-4 border-green-600 shadow-md rounded-xl p-6 mb-8";
+  const sectionClass =
+    "bg-green-50 border-l-4 border-green-600 shadow-md rounded-xl p-6 mb-8";
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -50,7 +55,7 @@ const PropertyDetails = () => {
           {photosCount > 0 ? (
             <>
               <img
-                src={`${API_URL}${photos[currentPhoto]}`}
+                src={`${BACKEND_URL}/${photos[currentPhoto]}`}
                 alt={`${property.title} - ${currentPhoto + 1}`}
                 className="w-full h-full object-cover transition-transform duration-500"
               />
@@ -95,7 +100,9 @@ const PropertyDetails = () => {
       <main className="max-w-5xl mx-auto px-6 py-10 space-y-6">
         {/* Property Details */}
         <section className={sectionClass}>
-          <h2 className="text-xl font-semibold text-green-900 mb-4">Property Details</h2>
+          <h2 className="text-xl font-semibold text-green-900 mb-4">
+            Property Details
+          </h2>
 
           {/* Price Highlight */}
           <p className="text-2xl font-extrabold text-white bg-green-600 inline-block px-4 py-2 rounded mb-4">
@@ -103,21 +110,44 @@ const PropertyDetails = () => {
           </p>
 
           <ul className="space-y-1 text-gray-700">
-            <li><span className="font-medium">Owner:</span> {property.owner?.name || "Not available"}</li>
-            <li><span className="font-medium">Address:</span> {property.address || "Not available"}</li>
-            <li><span className="font-medium">Bedrooms:</span> {property.bedrooms}</li>
-            <li><span className="font-medium">Bathrooms:</span> {property.bathrooms}</li>
-            <li><span className="font-medium">Area:</span> {property.area} sqft</li>
-            <li><span className="font-medium">Furnished:</span> {property.furnished ? "Yes" : "No"}</li>
-            <li><span className="font-medium">Pets Allowed:</span> {property.petsAllowed ? "Yes" : "No"}</li>
-            <li><span className="font-medium">Parking:</span> {property.parking ? "Yes" : "No"}</li>
+            <li>
+              <span className="font-medium">Owner:</span>{" "}
+              {property.owner?.name || "Not available"}
+            </li>
+            <li>
+              <span className="font-medium">Address:</span>{" "}
+              {property.address || "Not available"}
+            </li>
+            <li>
+              <span className="font-medium">Bedrooms:</span> {property.bedrooms}
+            </li>
+            <li>
+              <span className="font-medium">Bathrooms:</span> {property.bathrooms}
+            </li>
+            <li>
+              <span className="font-medium">Area:</span> {property.area} sqft
+            </li>
+            <li>
+              <span className="font-medium">Furnished:</span>{" "}
+              {property.furnished ? "Yes" : "No"}
+            </li>
+            <li>
+              <span className="font-medium">Pets Allowed:</span>{" "}
+              {property.petsAllowed ? "Yes" : "No"}
+            </li>
+            <li>
+              <span className="font-medium">Parking:</span>{" "}
+              {property.parking ? "Yes" : "No"}
+            </li>
           </ul>
         </section>
 
         {/* Description */}
         {property.description && (
           <section className={sectionClass}>
-            <h2 className="text-xl font-semibold text-green-900 mb-4">Description</h2>
+            <h2 className="text-xl font-semibold text-green-900 mb-4">
+              Description
+            </h2>
             <p className="text-gray-700 leading-relaxed">{property.description}</p>
           </section>
         )}
@@ -141,9 +171,12 @@ const PropertyDetails = () => {
 
         {/* Owner Info */}
         <section className={sectionClass}>
-          <h2 className="text-xl font-semibold text-green-900 mb-4">Owner Information</h2>
+          <h2 className="text-xl font-semibold text-green-900 mb-4">
+            Owner Information
+          </h2>
           <p className="text-gray-700 mb-2">
-            <span className="font-medium">Name:</span> {property.owner?.name || "Not available"}
+            <span className="font-medium">Name:</span>{" "}
+            {property.owner?.name || "Not available"}
           </p>
           {property.ownerContactNumber && (
             <a

@@ -1,3 +1,4 @@
+// App.tsx
 import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -25,7 +26,13 @@ import NotFound from "@/pages/NotFound";
 // ⚡ Query client
 const queryClient = new QueryClient();
 
-const API_URL = import.meta.env.VITE_API_URL || "https://smartrenter1.onrender.com/api";
+// ✅ Correct backend API URL
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://smartrenter1.onrender.com/api";
+
+// ✅ Helper to build full image URLs
+export const getImageUrl = (path: string) =>
+  `${API_URL.replace("/api", "")}/${path}`;
 
 const AppContent: React.FC = () => {
   const { user, logout } = useAuth();
@@ -33,7 +40,7 @@ const AppContent: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   // ----------------------------
-  // Fetch all properties from backend
+  // Fetch all properties
   // ----------------------------
   const fetchProperties = async () => {
     try {
@@ -52,7 +59,7 @@ const AppContent: React.FC = () => {
   }, []);
 
   // ----------------------------
-  // Property CRUD APIs
+  // Property CRUD
   // ----------------------------
   const addProperty = async (propertyData: any) => {
     try {
@@ -107,8 +114,9 @@ const AppContent: React.FC = () => {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
+        {/* User dashboard */}
         <Route
-          path="/search"
+          path="/user-dashboard"
           element={
             <ProtectedRoute allowedRoles={["user"]}>
               <UserDashboard user={user} logout={logout} />
@@ -116,6 +124,7 @@ const AppContent: React.FC = () => {
           }
         />
 
+        {/* Owner dashboard */}
         <Route
           path="/owner-dashboard"
           element={
@@ -131,6 +140,7 @@ const AppContent: React.FC = () => {
           }
         />
 
+        {/* Admin dashboard */}
         <Route
           path="/admin-dashboard"
           element={
