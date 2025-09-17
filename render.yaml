@@ -14,7 +14,7 @@ services:
 
   # === Backend (Express API) ===
   - type: web
-    name: smartrenter-backend
+    name: smartrenter1
     env: node
     plan: free
     buildCommand: npm install

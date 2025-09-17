@@ -25,7 +25,7 @@ import NotFound from "@/pages/NotFound";
 // ⚡ Query client
 const queryClient = new QueryClient();
 
-const API_URL = import.meta.env.VITE_API_URL || "https://smartrenter1.onrender.com /api";
+const API_URL = import.meta.env.VITE_API_URL || "https://smartrenter1.onrender.com/api";
 
 const AppContent: React.FC = () => {
   const { user, logout } = useAuth();
