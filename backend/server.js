@@ -29,7 +29,7 @@ app.use(
       "http://localhost:8080",
       "http://localhost:3000",
       "http://localhost:5173",
-      "https://smartrenter.vercel.app",
+      "https://smart-renter-qdsn.onrender.com",
       "https://smart-renter-qdsn.onrender.com",
       process.env.CLIENT_URL, // allow .env config for deployed frontend
     ].filter(Boolean), // Filter out undefined values
