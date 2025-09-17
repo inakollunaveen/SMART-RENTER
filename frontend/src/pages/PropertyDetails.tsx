@@ -25,7 +25,7 @@ const PropertyDetails = () => {
             return photo;
           }
           if (photo.startsWith("/")) {
-            return `${API_URL}${photo}`;
+            return `${process.env.REACT_APP_API_URL || "https://smartrenter1.onrender.com"}${photo}`;
           }
           return photo;
         });
