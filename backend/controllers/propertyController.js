@@ -80,7 +80,7 @@ export const addProperty = async (req, res, next) => {
       amenities: amenitiesArray,
       ownerContactNumber,
       photos,
-      approvalStatus: "pending" // Set to pending for admin approval
+      approvalStatus: "approved" // Set to approved so it appears in search immediately
     });
 
     await property.save();

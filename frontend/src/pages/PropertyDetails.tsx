@@ -1,12 +1,9 @@
 // src/pages/PropertyDetails.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPropertyById } from "@/utils/api";
+import { getPropertyById, API_URL } from "@/utils/api";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-
-// ✅ Helper to prepend backend URL for images
-const BACKEND_URL = "https://smartrenter1.onrender.com";
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -55,7 +52,7 @@ const PropertyDetails = () => {
           {photosCount > 0 ? (
             <>
               <img
-                src={`${BACKEND_URL}/${photos[currentPhoto]}`}
+                src={`${API_URL}${photos[currentPhoto]}`}
                 alt={`${property.title} - ${currentPhoto + 1}`}
                 className="w-full h-full object-cover transition-transform duration-500"
               />
