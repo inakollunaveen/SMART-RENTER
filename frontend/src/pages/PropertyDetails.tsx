@@ -1,7 +1,7 @@
 // src/pages/PropertyDetails.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPropertyById, API_URL } from "@/utils/api";
+import { getPropertyById } from "@/utils/api";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -44,17 +44,17 @@ const PropertyDetails = () => {
         setLoading(true);
         const data = await getPropertyById(id!);
         // Fix: Map photos to prepend API_URL if needed
-        if (data && data.photos && Array.isArray(data.photos)) {
-          data.photos = data.photos.map((photo: string) => {
-            if (photo.startsWith("http://") || photo.startsWith("https://")) {
-              return photo;
-            }
-            if (photo.startsWith("/")) {
-              return `${API_URL}${photo}`;
-            }
+      if (data && data.photos && Array.isArray(data.photos)) {
+        data.photos = data.photos.map((photo: string) => {
+          if (photo.startsWith("http://") || photo.startsWith("https://")) {
             return photo;
-          });
-        }
+          }
+          if (photo.startsWith("/")) {
+            return `${process.env.REACT_APP_API_URL || "https://smartrenter1.onrender.com"}${photo}`;
+          }
+          return photo;
+        });
+      }
         setProperty(data);
       } catch (err) {
         console.error(err);
