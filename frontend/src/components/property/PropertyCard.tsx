@@ -153,7 +153,7 @@ const PropertyCard: React.FC<Props> = ({ property }) => {
           )}
 
           <Link
-            to={`/properties/${property._id}`}
+            to={`api/properties/${property._id}`}
             className="w-full text-center border border-primary text-primary py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition"
           >
             🔍 View Details
