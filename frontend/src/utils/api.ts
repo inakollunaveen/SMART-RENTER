@@ -1,8 +1,7 @@
 // src/utils/api.ts
 
 // ✅ Use env variable for backend URL (fallback to localhost in dev)
-export const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
+export const API_URL = "https://smartrenter1.onrender.com/api";
 
 // --- Core request helper ---
 async function apiRequest(endpoint: string, options: RequestInit = {}) {
