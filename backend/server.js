@@ -52,29 +52,7 @@ app.use("/api/reviews", reviewRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
-});
-
-// ===== Error Handling Middleware =====
-app.use((error, req, res, next) => {
-  console.error('Unhandled error:', error);
-
-  // Handle multer errors specifically
-  if (error.code === 'LIMIT_FILE_SIZE') {
-    return res.status(400).json({ error: 'File too large. Maximum size is 5MB.' });
-  }
-  if (error.code === 'LIMIT_UNEXPECTED_FILE') {
-    return res.status(400).json({ error: 'Unexpected file field.' });
-  }
-
-  // Handle other errors
-  const statusCode = error.statusCode || 500;
-  const message = error.message || 'Internal server error';
-
-  res.status(statusCode).json({
-    error: message,
-    ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
-  });
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 // ===== Start Server =====

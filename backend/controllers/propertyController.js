@@ -54,31 +54,13 @@ export const addProperty = async (req, res, next) => {
 
     // Normalize propertyType to match schema enum
     console.log('Received propertyType:', propertyType);
-    let normalizedPropertyType = propertyType.toUpperCase().trim();
-
-    // Valid enum values: "1 BHK", "2 BHK", "3 BHK", "4 BHK", "VILLA"
-    const validTypes = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "VILLA"];
-
-    // Check if it's already a valid type
-    if (validTypes.includes(normalizedPropertyType)) {
-      // Already valid, use as is
-    } else if (normalizedPropertyType.includes('VILLA') || normalizedPropertyType === 'VILLA') {
-      normalizedPropertyType = 'VILLA';
-    } else {
-      // Try to extract number for BHK types
-      const numberMatch = normalizedPropertyType.match(/(\d+)/);
-      if (numberMatch) {
-        const num = parseInt(numberMatch[1]);
-        if (num >= 1 && num <= 4) {
-          normalizedPropertyType = `${num} BHK`;
-        } else {
-          return res.status(400).json({ error: "Invalid property type. Must be 1-4 BHK or VILLA" });
-        }
-      } else {
-        return res.status(400).json({ error: "Invalid property type. Must be 1-4 BHK or VILLA" });
-      }
+    let normalizedPropertyType = propertyType.toUpperCase();
+    if (!normalizedPropertyType.includes(' ')) {
+      normalizedPropertyType = normalizedPropertyType.replace(/(\d+)/, '$1 ');
     }
-
+    if (!normalizedPropertyType.includes('BHK')) {
+      normalizedPropertyType = normalizedPropertyType + ' BHK';
+    }
     console.log('Normalized propertyType:', normalizedPropertyType);
 
     // Create new property
@@ -112,32 +94,19 @@ export const addProperty = async (req, res, next) => {
     });
   } catch (error) {
     console.error('Error adding property:', error);
-
-    // Handle validation errors specifically
-    if (error.name === 'ValidationError') {
-      const validationErrors = {};
+    // Add detailed error logging for diagnosis
+    if (error.errors) {
       for (const key in error.errors) {
-        validationErrors[key] = error.errors[key].message;
+        console.error(`Validation error for ${key}:`, error.errors[key].message);
       }
-      return res.status(400).json({
-        error: 'Validation failed',
-        details: validationErrors
-      });
     }
-
-    // Handle other errors
     if (error.message) {
       console.error('Error message:', error.message);
     }
     if (error.stack) {
       console.error('Stack trace:', error.stack);
     }
-
-    // Return generic error message
-    res.status(500).json({
-      error: 'Internal server error',
-      message: error.message || 'An unexpected error occurred'
-    });
+    next(error);
   }
 };
 
