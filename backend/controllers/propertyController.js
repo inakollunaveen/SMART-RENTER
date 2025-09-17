@@ -79,7 +79,8 @@ export const addProperty = async (req, res, next) => {
       parking: parking === 'true' || parking === true,
       amenities: amenitiesArray,
       ownerContactNumber,
-      photos
+      photos,
+      approvalStatus: "pending" // Set to pending for admin approval
     });
 
     await property.save();
